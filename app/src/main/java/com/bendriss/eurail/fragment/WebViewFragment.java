@@ -46,17 +46,7 @@ public class WebViewFragment extends Fragment {
         eurailWebView.getSettings().setDomStorageEnabled(true);
         eurailWebView.getSettings().setJavaScriptEnabled(true);
 
-/*
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                test(eurailWebView);
-            }
-        }, 2000);
 
-
- */
         eurailWebView.evaluateJavascript(
                 /*
 
@@ -68,30 +58,28 @@ public class WebViewFragment extends Fragment {
 
                  */
                 //"(function() { return ('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>'); })();",
-                "(function() { return document.getElementsByTagName('body').length; })();",
+                "(function() { return ('<html>'+document.getElementsByTagName('body')[0].innerHTML+'</html>'); })();",
                 new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String html) {
-                        Log.d("HTML", html);
+                        Log.d("HTML", html.toString());
                         // code here
                     }
                 });
 
+        /*
         eurailWebView.findAllAsync("to");
         eurailWebView.setFindListener(new WebView.FindListener() {
 
             @Override
             public void onFindResultReceived(int activeMatchOrdinal, int numberOfMatches, boolean isDoneCounting) {
-                /*
-                if(isDoneCounting)
-                    Toast.makeText(getContext(), "Matches: " + numberOfMatches, Toast.LENGTH_LONG).show();
-                 */
+
             }
         });
+         */
 
-
-        boolean loadingFinished = true;
-        boolean redirect = false;
+        final boolean[] loadingFinished = {true};
+        final boolean[] redirect = {false};
 
         eurailWebView.setWebViewClient(new WebViewClient() {
 
@@ -107,6 +95,7 @@ public class WebViewFragment extends Fragment {
                 return true;
 
                  */
+
                 return true;
             }
 
@@ -114,24 +103,26 @@ public class WebViewFragment extends Fragment {
             public void onPageStarted(WebView view, String url, Bitmap facIcon) {
                 //loadingFinished = false;
                 //SHOW LOADING IF IT ISNT ALREADY VISIBLE
+
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
 
-                test(eurailWebView);
-                /*
-                if(!redirect){
-                    loadingFinished = true;
+                //test(eurailWebView);
+
+                if(!redirect[0]){
+                    loadingFinished[0] = true;
+                    test(eurailWebView);
                 }
 
-                if(loadingFinished && !redirect){
+                if(loadingFinished[0] && !redirect[0]){
                     //HIDE LOADING IT HAS FINISHED
                 } else{
-                    redirect = false;
+                    redirect[0] = false;
                 }
 
-                 */
+
 
             }
         });
@@ -145,6 +136,7 @@ public class WebViewFragment extends Fragment {
     {
         eurailWebView.evaluateJavascript(
                 "(function() { return document.getElementsByTagName('div').length; })();",
+                //"(function() { return document.querySelectorAll('div').length; })();",
                 new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String html) {

@@ -113,7 +113,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
         mMap.addMarker(new MarkerOptions().position(matar).title(title));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation,12));
 
+        Location l = new Location("xxx");
+        l.setLatitude(36.850636);
+        l.setLongitude(10.217069);
         Log.e("DISTANCE ",calculationByDistance(userLocation,matar)+"KM");
+        Log.e("DISTANCE ",(location.distanceTo(l)/1000)+"KM");
     }
 
 
