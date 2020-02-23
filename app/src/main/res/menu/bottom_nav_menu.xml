@@ -4,25 +4,25 @@
     <item
         android:id="@+id/action_map"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/baseline_map_black_24"
         android:title="@string/map"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_loading"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/baseline_slow_motion_video_black_24"
         android:title="@string/loading"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_storage"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/baseline_text_fields_black_24"
         android:title="@string/storage"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_webview"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/baseline_web_black_24"
         android:title="@string/webview"
         app:showAsAction="ifRoom" />
 </menu>
