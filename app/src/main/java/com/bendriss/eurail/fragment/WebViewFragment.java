@@ -134,6 +134,7 @@ public class WebViewFragment extends Fragment {
                 new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String html) {
+                        numberOfDivsTv.setTextColor(getResources().getColor(R.color.dark_orange));
                         numberOfDivsTv.setText(getResources().getString(R.string.number_of_divs, html));
                     }
                 });
