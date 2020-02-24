@@ -15,24 +15,23 @@ To run the app on your device or emulator, just click on the run button in Andro
 ![alt text](https://scontent.ftun1-1.fna.fbcdn.net/v/t1.15752-9/83339050_190016038717673_3041085232116662272_n.png?_nc_cat=111&_nc_oc=AQnQO7RJ2BLpn3A0C2GedpEJZChJN9QP6PYNFCjHSkexCl6xjZo8y41n3etgCuCsmf8&_nc_ht=scontent.ftun1-1.fna&oh=1284514edeab3057f92f1bbf6d27d4c6&oe=5EDACE61)
 
 You can also run the app by downloading the apk file previously generated on your smartphone and install it.
-## Test
-Les tests développés dans ce projet sont des tests UI relatives au recyclerView.\
-Ces tests assurent que le recyclerView est bien visible, le bon fonctionnement du click ainsi que le scroll sur le recyclerView. 
-
 
 ## Features
 
-This application starts with a splash screen displaying an animation of Eurail's logo, and then it offers the possibility to navigate between four different screens: \
+This application starts with a splash screen displaying an animation of Eurail's logo, and then it offers the possibility to navigate between four different screens: 
 - Map
 - Countdown
 - Storage
 - WebView
 
-The navigation is provided by the bottom nav bar. This choice has been made because I think that it is more user friendly for the app's features.\
-The map screen displays a map and centers the camera at the device's location, shows a pin in random proximity and the distance between these two places. The random generated locations are stored in the local SQLI database using "room" library. \
-The second screen displays a loading animation and a countdown from 10 to 1 with half a second delay between each number. It behaves normally when the device is rotated.\
-The storage screen contains an edit text, a text view and a button. The click on the button will save the edit text's value in the Shared Preferences and show it in the text view.\
-The last screen contains a webview which loads "https://www.eurail.com/en/get-inspired" . Once the loading is finished, the number of <div> tags in the loaded html page is displayed on the top of the screen. The calculation of the occurences of <div> tags is done by the injection of a javascript code in our webview. I have tested another method and it returns the same result.\
+The navigation is provided by the bottom nav bar. This choice has been made because I think that it is more user friendly for the app's features.
+
+The map screen displays a map and centers the camera at the device's location, shows a pin in random proximity and the distance between these two places. The random generated locations are stored in the local SQLI database using "room" library.
+The second screen displays a loading animation and a countdown from 10 to 1 with half a second delay between each number. It behaves normally when the device is rotated.
+
+The storage screen contains an edit text, a text view and a button. The click on the button will save the edit text's value in the Shared Preferences and show it in the text view.
+
+The last screen contains a webview which loads "https://www.eurail.com/en/get-inspired" . Once the loading is finished, the number of "div" tags in the loaded html page is displayed on the top of the screen. The calculation of the occurences of "div" tags is done by the injection of a javascript code in our webview. I have tested another method and it returns the same result. 
   
 
 If internet connection is not ok, an animation is displayed which indicates the absence of the internet connection.
