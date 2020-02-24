@@ -13,7 +13,7 @@
     <string name="number_of_divs">The number of \"&lt;div&gt;\" tags in the html of this mobile page is %1$s</string>
     <string name="wait_for_loading">So you can see the number of \"&lt;div&gt;\" tags, please wait until the page is fully loaded</string>
     <string name="check_connection">Please check your internet connection</string>
-    <string name="check_location">Please active your location service</string>
+    <string name="check_location">Please activate your location service</string>
     <string name="text_storage">Text storage</string>
     <string name="distance_between_two">Distance between the 2 places is </string>
     <string name="km">KM </string>

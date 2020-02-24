@@ -12,7 +12,6 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
 
     private AppDatabase database;
-    private LocationModel locationModel;
 
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
@@ -70,8 +68,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-        init(view);
-
+        init();
 
         if (!ConnectivityUtils.checkLocationServices(getContext()))
             Toast.makeText(getContext(), getResources().getString(R.string.check_location), Toast.LENGTH_SHORT).show();
@@ -83,7 +80,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     /**
      * This function will initiate our vars
      */
-    private void init(View view) {
+    private void init() {
         database = AppDatabase.getDatabase(getContext());
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -97,19 +94,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     /**
      * This function will return the list of savec locations
+     *
      * @return
      */
-    private List<LocationModel> getAllSavedLocations()
-    {
+    private List<LocationModel> getAllSavedLocations() {
         return database.locationDao().getAllLocations();
     }
 
     /**
      * This function will save the locationModel to the local database
+     *
      * @param locationModel
      */
-    private void saveLocationToDatabase(LocationModel locationModel)
-    {
+    private void saveLocationToDatabase(LocationModel locationModel) {
         database.locationDao().addLocation(locationModel);
     }
 
@@ -139,17 +136,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         };
 
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            /*
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-            //LocationModel lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            LocationModel lastKnownLocation = getLastKnownLocation();
-            centreMapOnLocation(lastKnownLocation, "Your LocationModel");
-            */
-
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
             Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            //LocationModel lastKnownLocation = getCurrentLocation();
             if (lastKnownLocation != null)
                 centreMapOnLocation(lastKnownLocation, "Your LocationModel");
         } else {
@@ -171,7 +160,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         /**
          * Save this random near location to the local database
          */
-        LocationModel locationModel = new LocationModel(1,System.currentTimeMillis() + "",randomNearLocation.getLongitude()+"",randomNearLocation.getLatitude()+"");
+        LocationModel locationModel = new LocationModel(1, System.currentTimeMillis() + "", randomNearLocation.getLongitude() + "", randomNearLocation.getLatitude() + "");
         saveLocationToDatabase(locationModel);
 
         /**
@@ -189,7 +178,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
          * The calculation of the distance between the two places
          */
         double distance = (double) Math.round((location.distanceTo(randomNearLocation) / 1000) * 100) / 100;
-        Toast.makeText(getContext(), getResources().getString(R.string.distance_between_two)+" "+distance+" KM", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), getResources().getString(R.string.distance_between_two) + " " + distance + " KM", Toast.LENGTH_LONG).show();
     }
 
 
@@ -210,31 +199,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-/*
-    LocationManager mLocationManager;
-    private Location getLastKnownLocation() {
-        mLocationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        List<String> providers = mLocationManager.getProviders(true);
-        Location bestLocation = null;
-        Location l = null;
-        for (String provider : providers) {
-            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                l = mLocationManager.getLastKnownLocation(provider);
-            }
-            if (l == null) {
-                continue;
-            }
-            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
-                // Found best last known location: %s", l);
-                bestLocation = l;
-            }
-        }
-        return bestLocation;
-    }
-*/
-
     /**
      * This function will return a random nearby location using a radius (I defined it to 7000 meters)
+     *
      * @param x0
      * @param y0
      * @param radius
@@ -287,5 +254,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
+    /*
+    LocationManager mLocationManager;
+    private Location getLastKnownLocation() {
+        mLocationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        List<String> providers = mLocationManager.getProviders(true);
+        Location bestLocation = null;
+        Location l = null;
+        for (String provider : providers) {
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                l = mLocationManager.getLastKnownLocation(provider);
+            }
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                // Found best last known location: %s", l);
+                bestLocation = l;
+            }
+        }
+        return bestLocation;
+    }
+*/
 
 }

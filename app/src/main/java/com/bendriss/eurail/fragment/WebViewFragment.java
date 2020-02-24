@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -140,6 +141,41 @@ public class WebViewFragment extends Fragment {
                 });
     }
 
+    /**
+     * This function is a second method to count the number of div from the html code of the loaded page
+     * It returns the same result as the above function
+     * @param eurailWebView
+     */
+    private void countNumberOfDivsTest(WebView eurailWebView)
+    {
+        eurailWebView.evaluateJavascript(
+                "(function() { return ('<html>'+document.getElementsByTagName('body')[0].innerHTML+'</html>'); })();",
+                new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String html) {
+                        String s = html;
+                        s= s.replace("\\u003C","<");
+                        Log.e("HTML", ""+countOccurences(s,"\\u003C/div")+" occurences of div");
+                    }
+                });
+    }
+
+    /**
+     * This function will count the number of occrences of a word
+     * @param str the string in which we will search
+     * @param word the string to search
+     * @return
+     */
+    private int countOccurences(String str,String word)
+    {
+        int count = 0;
+        for (int i = 0; i < str.length(); i++)
+        {
+            if(str.charAt(i)=='<' && str.charAt(i+1)=='d' && str.charAt(i+2)=='i' && str.charAt(i+3)=='v')
+            {count++;}
+        }
+        return count;
+    }
 
     @Override
     public void onResume() {
