@@ -116,10 +116,15 @@ public class WebViewFragment extends Fragment {
         if (ConnectivityUtils.checkInternetConnection(getContext())) {
             eurailWebView.loadUrl(url);
             animationView.setVisibility(View.INVISIBLE);
+            eurailWebView.setVisibility(View.VISIBLE);
+            numberOfDivsTv.setTextColor(getResources().getColor(R.color.white));
 
         } else {
             numberOfDivsTv.setText(getResources().getString(R.string.check_connection));
             animationView.setVisibility(View.VISIBLE);
+            eurailWebView.setVisibility(View.INVISIBLE);
+            numberOfDivsTv.setTextColor(getResources().getColor(R.color.white));
+
         }
     }
 
